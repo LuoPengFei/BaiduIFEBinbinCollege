@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>污染城市列表</title>
+    
+    <script type="text/javascript">
+        var aqiData = [
+                ['北京',90],
+                ['上海',50],
+                ['福州',10],
+                ['广州',50],
+                ['成都',90],
+                ['西安',100]
+        ];
+        
+        window.onload = function () {
+            var oUl = document.getElementById('aqi-list');
+
+            /*
+            * 数组循环变量，最先想到的就是 for(var i=0;i<count;i++)这样的方式了。
+            *
+            * */
+//            for (var i = 0; i < aqiData.length; i++) {
+//                var value = aqiData[i];
+//                var aqi = value[1];
+//                if (aqi > 60) {
+//                    var oLi = document.createElement('li');
+//                    oLi.innerHTML=value[0] + "aqi:" + value[1];
+//                    oUl.appendChild(oLi);
+//                }
+//            }
+
+            /*
+            *
+            *函数从头到尾把数组遍历一遍。
+            * 有三个参数分别是：数组元素，元素的索引，数组本身
+            * 如果是一个参数就是数组元素，也就是数组的值
+            *
+            *
+            * forEach无法在所有元素都传递给调用的函数之前终止（而for循环却有break方法）
+            * 如果要提前终止，必须把forEach放在try块中，并能抛出一个异常。
+            * 如果forEach()调用的函数抛出foreach.break异常，循环会提前终止
+            * */
+
+//            aqiData.forEach(function (value, index, aqiData) {
+//                var aqi = value[1];
+//                if (aqi > 60) {
+//                    var oLi = document.createElement('li');
+//                    oLi.innerHTML=value[0] + "aqi:" + value[1];
+//                    oUl.appendChild(oLi);
+//                }
+//            });
+
+            /*
+            * every() 方法用于检测数组所有元素是否都符合指定条件（通过函数提供）。
+            * every() 方法使用指定函数检测数组中的所有元素：
+            * 如果数组中检测到有一个元素不满足，则整个表达式返回 false ，且剩余的元素不会再进行检测。
+            * 如果所有元素都满足条件，则返回 true。
+            * */
+
+//            aqiData.every(function (currentValue, index, array) {
+//                var aqi = currentValue[1];
+//                if (aqi > 60) {
+//                    var oLi = document.createElement('li');
+//                    oLi.innerHTML=currentValue[0] + "aqi:" + currentValue[1];
+//                    oUl.appendChild(oLi);
+//                }
+//                return true;
+//            });
+        };
+        
+
+        
+        
+    </script>
+    
+</head>
+<body>
+
+<h3>污染城市列表</h3>
+<ul id="aqi-list">
+    
+</ul>
+
+</body>
+</html>
