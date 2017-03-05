@@ -52,6 +52,15 @@
             oUl = document.getElementById('container_ul');
             oValidText = document.getElementById('validText');
 
+
+            /*
+            *  Array方法:
+            *  unshift():向数组开始位置插入一个或多个元素,返回值:数组新长度
+            *  shift():删除并返回第一个数组元素
+            *  splice():删除元素,并向数组增新元素
+            *  push():向数组末尾添加一个或者更多元素,并返回新的长度
+            *  pop():删除并返回数组最后一个元素
+            * */
             addHandler(oLeftIn, 'click', function () {
                 var value = oIntput.value;
                 if (!validNumber(value)) return;
@@ -79,7 +88,8 @@
 
             addHandler(oRightOut, 'click', function () {
                 if (arr.length) {
-                    arr.splice(arr.length-1, 1);
+                    arr.pop();
+//                    arr.splice(arr.length-1, 1);
                     if (oUl.childElementCount) {
                         oUl.removeChild(oUl.lastChild);
                     }
@@ -89,19 +99,24 @@
 
         }
 
+        /*数字验证*/
         function validNumber(value) {
             var reg = new RegExp("^[0-9]*$");
             oValidText.innerText = reg.test(value) ? "" : "请输入一个数字";
             return reg.test(value);
         }
 
-        function render(isLeft) {
 
+        /*渲染新增 or 插入<li> tag*/
+        function render(isLeft) {
             var value = isLeft ? arr[0] : arr[arr.length-1];
             var oLi = document.createElement('li');
             oLi.innerHTML = value;
+            /*检查是否有childcount,进而获取firstChild元素*/
             if (oUl.childElementCount != 0) {
+                /*获取第一个<li>元素*/
                 var oFir = oUl.firstChild;
+                /*使用条件表达式进行插入或者增删*/
                 isLeft ? oUl.insertBefore(oLi, oFir) : oUl.appendChild(oLi);
             } else  {
                 oUl.appendChild(oLi);
