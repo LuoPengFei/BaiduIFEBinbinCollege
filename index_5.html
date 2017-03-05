@@ -141,6 +141,19 @@
             addArray(isLeft, value);
         }
 
+        function maopao(array) {
+            if (!array.length) return;
+            for (var i = 0; i < array.length; i++) {
+                for (var j = 0; j < array.length; j++) {
+                    if (array[i] < array[j]) {
+                        var tem = array[i]
+                        array[i] = array[j];
+                        array[j] = tem;
+                    }
+                }
+            }
+        }
+
         var addHandler = function (element, type, handler) {
             if (element.addEventListener) {
                 element.addEventListener(type, handler);
@@ -168,6 +181,8 @@
 
     <ul id="container_ul">
     </ul>
+
+    <div class="bar_container"></div>
 
     <div id="validText">
     </div>
