@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基础JavaScript练习（一）</title>
+
+    <style type="text/css">
+        * {
+
+            text-align: center;
+        }
+        #container {
+            margin: 30px auto;
+            width: 1000px;
+            align-content: center;
+        }
+
+        #leftOut {
+            margin-left: 30px;
+        }
+        #container_ul {
+            margin-top: 30px;
+        }
+
+        li {
+            list-style: none;
+            float: left;
+            margin-left: 20px;
+            background: red;
+            padding: 5px;
+            text-align: center;
+        }
+
+    </style>
+
+    <script>
+        var oIntput = null;
+        var oLeftIn = null;
+        var  oRightIn = null;
+        var oLeftOut = null;
+        var oRightOut = null;
+        var oUl = null;
+        var oValidText = null;
+
+        var arr = new Array();
+        window.onload = function () {
+            oIntput = document.getElementById('inputT');
+            oLeftIn = document.getElementById('leftIn');
+            oRightIn = document.getElementById('rigntIn');
+            oLeftOut = document.getElementById('leftOut');
+            oRightOut = document.getElementById('rightOut');
+            oUl = document.getElementById('container_ul');
+            oValidText = document.getElementById('validText');
+
+            addHandler(oLeftIn, 'click', function () {
+                var value = oIntput.value;
+                if (!validNumber(value)) return;
+                arr.unshift(value);
+                oIntput.value = '';
+                render(true);
+            });
+
+            addHandler(oRightIn, 'click', function () {
+                var value = oIntput.value;
+                if (!validNumber(value)) return;
+                arr.push(value);
+                oIntput.value = '';
+                render(false);
+            })
+
+            addHandler(oLeftOut, 'click', function () {
+                if (arr.length) {
+                    arr.unshift();
+                    if (oUl.childElementCount) {
+                        oUl.removeChild(oUl.firstChild);
+                    }
+                }
+            });
+
+            addHandler(oRightOut, 'click', function () {
+                if (arr.length) {
+                    arr.splice(arr.length-1, 1);
+                    if (oUl.childElementCount) {
+                        oUl.removeChild(oUl.lastChild);
+                    }
+                }
+            });
+
+
+        }
+
+        function validNumber(value) {
+            var reg = new RegExp("^[0-9]*$");
+            oValidText.innerText = reg.test(value) ? "" : "请输入一个数字";
+            return reg.test(value);
+        }
+
+        function render(isLeft) {
+
+            var value = isLeft ? arr[0] : arr[arr.length-1];
+            var oLi = document.createElement('li');
+            oLi.innerHTML = value;
+            if (oUl.childElementCount != 0) {
+                var oFir = oUl.firstChild;
+                isLeft ? oUl.insertBefore(oLi, oFir) : oUl.appendChild(oLi);
+            } else  {
+                oUl.appendChild(oLi);
+            }
+        }
+
+
+
+
+        var addHandler = function (element, type, handler) {
+            if (element.addEventListener) {
+                element.addEventListener(type, handler);
+            } else  if (element.attachEvent) {
+                element.attachEvent('on'+type, handler);
+            } else  {
+                element['on'+type]=handler;
+            }
+        }
+
+
+    </script>
+
+</head>
+<body>
+
+<div id="container">
+    <div>
+        <input id="inputT" type="text">
+        <button id="leftIn">左侧入</button>
+        <button id="rigntIn">右侧入</button>
+        <button id="leftOut">左侧出</button>
+        <button id="rightOut">右侧出</button>
+    </div>
+
+    <ul id="container_ul">
+    </ul>
+
+    <div id="validText">
+    </div>
+</div>
+
+
+</body>
+</html>
